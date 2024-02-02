@@ -8,20 +8,20 @@ void printPreorderRecursive(TreeNode* root){
     printPreorderRecursive(root->left);
     printPreorderRecursive(root->right);
 }
-void printPreorderIterative(TreeNode* root){
+vector<int> printPreorderIterative(TreeNode* root){
     // root left right
     stack<TreeNode*> s;
+    vector<int> preorder;
     s.push(root);
     while(!s.empty()){
-        TreeNode* node = s.top();
+        TreeNode* temp = s.top();
+        preorder.push_back(temp->data);
         s.pop();
-        cout << node->data<< " ";
-        if(node->right)s.push(node->right);
-        if(node->left)s.push(node->left);
-
-
+        if(temp->right)s.push(temp->right);
+        if(temp->left)s.push(temp->left);
     }
-    return;
+    return preorder;
+    
 }
 int main(){
     TreeNode* root = new TreeNode(1);
@@ -35,6 +35,9 @@ int main(){
     root->left->left->right = new TreeNode(9);
     printPreorderRecursive(root);
     cout << endl;
-    printPreorderIterative(root);
+    vector<int> ans = printPreorderIterative(root);
+    for(auto x: ans){
+        cout << x<< " ";
+    }
     return 0;
 }

@@ -13,15 +13,15 @@ void printInorderRecursive(TreeNode* root){
 vector<int> printInorderIterative(TreeNode* root){
     // left root right
     stack<TreeNode*> s;
-    TreeNode* node = root;
+    // s.push(root);
     vector<int> ans;
+    TreeNode* node = root;
     while(true){
-        if(node != NULL){
+        if(node!=NULL){
             s.push(node);
             node = node->left;
-        }
-        else{
-            if(s.empty())break;
+        }else{
+            if(s.empty()==true)break;
             node = s.top();
             s.pop();
             ans.push_back(node->data);
@@ -41,6 +41,7 @@ int main(){
     root->left->left->left = new TreeNode(8);
     root->left->left->right = new TreeNode(9);
     printInorderRecursive(root);
+    cout << endl;
     cout << endl;
     vector<int> ans = printInorderIterative(root);
     for(auto x: ans)

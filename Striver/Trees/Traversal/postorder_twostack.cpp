@@ -10,30 +10,23 @@ void printPostorderRecursive(TreeNode* root){
 }
 vector<int>printPostorderIterative(TreeNode* root){
     // left right root
-    stack<TreeNode*> s;
+    stack<TreeNode*> s1;
+    stack<int> s2;
     vector<int> ans;
-    TreeNode* current = root, *temp;
-    while(current!=nullptr || !s.empty()){
-        if(current){
-            s.push(current);
-            current= current->left;
-        }else{
-            temp = s.top()->right;
-            if(temp == nullptr){
-                temp = s.top();
-                s.pop();
-                ans.push_back(temp->data);
-                while(!s.empty() && s.top()->right == temp){
-                temp = s.top();
-                s.pop();
-                ans.push_back(temp->data);
+    TreeNode* current = root;
+    s1.push(current);
+    while(!s1.empty()){
+        current = s1.top();
+        s1.pop();
+        s2.push(current->data);
+        if(current->left)s1.push(current->left);
+        if(current->right)s1.push(current->right);
+        
+    }
 
-                }
-
-            }else{
-                current = temp;
-            }
-        }
+    while(!s2.empty()){
+        ans.push_back(s2.top());
+        s2.pop();
     }
     return ans;
 

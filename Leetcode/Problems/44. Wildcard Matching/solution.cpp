@@ -16,7 +16,7 @@ string trimFromIndex(const string& str, size_t index) {
             unordered_map<char, vector<int>> chars;
             while(i < s.size() && j < p.size()){
                 if(p[j] == '?'){
-                    i++;
+                    i+  +;
                     j++;
                 }else if(p[j]>='a' && p[j]<='z'){
                     if(chars.find(p[j])!=chars.end()){

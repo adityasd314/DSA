@@ -16,12 +16,11 @@ vector<int> printInorderIterative(TreeNode* root){
     // s.push(root);
     vector<int> ans;
     TreeNode* node = root;
-    while(true){
+    while(!s.empty()){
         if(node!=NULL){
             s.push(node);
             node = node->left;
         }else{
-            if(s.empty()==true)break;
             node = s.top();
             s.pop();
             ans.push_back(node->data);

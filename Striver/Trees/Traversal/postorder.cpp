@@ -13,13 +13,13 @@ vector<int>printPostorderIterative(TreeNode* root){
     stack<TreeNode*> s;
     vector<int> ans;
     TreeNode* current = root, *temp;
-    while(current!=nullptr || !s.empty()){
+    while(current!=NULL || !s.empty()){
         if(current){
             s.push(current);
             current= current->left;
         }else{
             temp = s.top()->right;
-            if(temp == nullptr){
+            if(temp == NULL){
                 temp = s.top();
                 s.pop();
                 ans.push_back(temp->data);

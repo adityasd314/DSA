@@ -15,26 +15,25 @@
         stack<pair<TreeNode*, int>> s;
         s.push({root, 1});
         while(!s.empty()){
-            cout << s.top().first->data << ": "<<s.top().second<<endl;
-            if(s.top().second == 1){
+            TreeNode* t= s.top().first;
+            int num= s.top().second;
+           
+            if(num == 1){
+                ans[num-1].push_back(t->data);
                 s.top().second++;
-                ans[s.top().second - 1].push_back(s.top().first->data);
-                if(s.top().first->left)s.push({s.top().first->left, 1}); 
-                
-            }else if(s.top().second == 2){
+                if(t->left)
+                s.push({t->left, 1});
+            }else if(num == 2){
+                ans[num-1].push_back(t->data);
                 s.top().second++;
-
-                ans[s.top().second - 1].push_back(s.top().first->data);
-                if(s.top().first->right)s.push({s.top().first->right, 1}); 
+                if(t->right)
+                s.push({t->right, 1});
 
             }else{
-                ans[s.top().second].push_back(s.top().first->data);
+                ans[num-1].push_back(t->data);
                 s.pop();
-                
             }
         }
-        
-        
         return ans;
 
     }

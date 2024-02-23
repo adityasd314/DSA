@@ -1,27 +1,48 @@
-class Solution
-{
-    public:
-        //User function Template for C++
-
-        int maxProfit(vector<int>&price){
-            //Write your code here..
-            int n=price.size();
-            vector<int>temp(n,0);
-
-            //first traversal was from right to left
-            int maxi=price[n-1];
-            for(int i=n-2;i>=0;i--){
-                maxi=max(maxi, price[i]);
-                temp[i]=max(temp[i+1], maxi-price[i]);
-            }
-
-            //second traversal
-            int mini=price[0];
-            for(int i=1;i<n;i++){
-                mini=min(price[i],mini);
-                temp[i]=max(temp[i-1], price[i]-mini+temp[i]);
-            }
-
-            return temp[n-1];
+class Solution {
+public:
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
+        vector<int> distance(n, INT_MAX);
+        
+        unordered_map<int, vector<pair<int, int>>> adj;
+        
+        for(vector<int> &vec : flights) {
+            int u    = vec[0];
+            int v    = vec[1];
+            int cost = vec[2];
+            
+            adj[u].push_back({v, cost});
         }
+        
+        queue<pair<int, int>> que;
+        que.push({src, 0});
+        distance[src] = 0;
+        
+        int level = 0;
+        
+        while(!que.empty() && level <= k) {
+            int N = que.size();
+            
+            while(N--) {
+                int u = que.front().first;
+                int d = que.front().second;
+                que.pop();
+                
+                for(pair<int, int> &P : adj[u]) {
+                    
+                    int v    = P.first;
+                    int cost = P.second;
+                    
+                    if(distance[v] > d + cost) {
+                        distance[v] = d + cost;
+                        que.push({v, d+cost});
+                    }
+                    
+                }
+                
+            }
+            level++;
+        }
+        
+        return distance[dst] == INT_MAX ? -1 : distance[dst];
+    }
 };
